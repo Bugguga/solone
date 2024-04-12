@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const auth = require("./routes/auth");
 const dentist = require("./routes/dentist");
 const booking = require("./routes/booking");
+const payment = require("./routes/payment");
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/dentists", dentist);
 app.use("/api/v1/bookings", booking);
+app.use("/api/v1/payments", payment);
 
 
 const PORT = process.env.PORT || 5000;

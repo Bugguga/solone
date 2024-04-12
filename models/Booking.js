@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const serviceEnums = ["tartar", "filling", "check"];
+
 const BookingSchema = new mongoose.Schema({
     bookDate: {
         type: Date,
@@ -14,6 +16,14 @@ const BookingSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Dentist',
         required: true
+    },
+    services: {
+        type: [String],
+        enum: serviceEnums,
+    },
+    price : {
+        type: Number,
+        default: 0
     },
     createdAt: {
         type: Date,
