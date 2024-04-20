@@ -1,5 +1,5 @@
 const express = require("express");
-const { addBooking, getBookings, updateBooking, deleteBooking } = require("../controllers/booking");
+const { addBooking, getBookings,getBooking, updateBooking, deleteBooking } = require("../controllers/booking");
 
 const router = express.Router({ mergeParams: true });
 
@@ -12,6 +12,7 @@ router
 
   router
   .route("/:id")
+  .get(protect, getBooking)
   .put(protect, authorize("admin", "user"), updateBooking)
   .delete(protect, authorize("admin", "user"), deleteBooking);
 

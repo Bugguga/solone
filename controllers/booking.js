@@ -104,6 +104,30 @@ exports.getBookings = async (req, res, next) => {
   }
 };
 
+//@desc Get single booking
+//@route GET /api/v1/bookings/:id
+//@access Public
+exports.getBooking = async (req, res, next) => {
+  try {
+    const booking = await Booking.findById(req.params.id).populate({
+      path: "dentist",
+      select: "name",
+    });
+    if (!booking) {
+      return res.status(404).json({
+        success: false,
+        message: `No booking with the id of ${req.params.id}`,
+      });
+    }
+    res.status(200).json({ success: true, data: booking });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Cannot find Booking" });
+  }
+};
+
 //@desc Update booking
 //@route PUT /api/v1/bookings/:id
 //@access Private

@@ -73,7 +73,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     options.secure = true;
   }
   res
-    .status(statusCode) /*.cookie("token", token, options)*/
+    .status(statusCode).cookie("token", token, options)
     .json({
       success: true,
       _id: user._id,

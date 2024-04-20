@@ -11,7 +11,7 @@ const DentistSchema = new mongoose.Schema({
     required: [true, "Please add years of experience"],
   },
   areaOfExpertise: {
-    type: String,
+    type: [String],
     required: [true, "Please add an area of expertise"],
   },
 }, {
