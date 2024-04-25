@@ -6,6 +6,6 @@ const { protect, authorize } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.route("/:userid").post(protect, authorize("admin", "user"), topup);
+router.route("/:userid").post(protect, authorize("admin"), topup);
 
 module.exports = router;

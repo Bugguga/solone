@@ -12,7 +12,6 @@ exports.topup = async (req, res, next) => {
         message: `No user with the id of ${req.params.userid}`,
       });
     }
-    console.log(req.body.credit);
     user.creditBalance += req.body.credit;
     await user.save();
     res.status(200).json({ success: true, data: user });

@@ -7,6 +7,14 @@ const User = require("../models/User");
 //@access Private
 exports.addBooking = async (req, res, next) => {
   try {
+    //check future date
+    if (new Date(req.body.bookDate) < new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: `Cannot book in the past`,
+      });
+    }
+    
     req.body.dentist = req.params.dentistId;
 
     const dentist = await Dentist.findById(req.params.dentistId);
@@ -149,6 +157,13 @@ exports.updateBooking = async (req, res, next) => {
       });
     }
 
+    if (new Date(req.body.bookDate) < new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: `Cannot book in the past`,
+      });
+    }
+
     booking = await Booking.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -182,6 +197,12 @@ exports.deleteBooking = async (req, res, next) => {
         message: `User ${req.user.id} is not authorized to delete this booking`,
       });
     }
+
+    //increase user's balance
+    const user = await User.findById(req.user.id);
+    user.creditBalance += booking.price;
+    await user.save();
+
     await booking.deleteOne();
     res.status(200).json({ success: true, data: {} });
   } catch (error) {

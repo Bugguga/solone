@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add a telephone number"],
   },
+  creditBalance: {
+    type: Number,
+    default: 0,
+  },
   password: {
     type: String,
     required: [true, "Please add a password"],
@@ -33,10 +37,6 @@ const UserSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
-  creditBalance: {
-    type: Number,
-    default: 0,
-  },
   createdAt: {
     type: Date,
     default: Date.now,
