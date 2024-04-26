@@ -199,7 +199,7 @@ exports.deleteBooking = async (req, res, next) => {
     }
 
     //increase user's balance
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(booking.user);
     user.creditBalance += booking.price;
     await user.save();
 
